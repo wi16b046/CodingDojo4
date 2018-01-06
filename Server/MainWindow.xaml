@@ -5,8 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Start" Width="45" VerticalAlignment="Center" Margin="10" Command="{Binding StartBtnClicked}"/>
+            <Button Content="Stop" Width="45" VerticalAlignment="Center" Margin="10" Command="{Binding StopBtnClicked}"/>
+        </StackPanel>
+        <TabControl Margin="10" Grid.Row="1">
+            <TabItem Header="Chat" Height="20" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Connected Users: " />
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Label Content="Received Messages: "/>
+                        <Label Margin="5" />
+                    </StackPanel>
+                    <ListBox Grid.Row="1" ItemsSource="{Binding Users}" SelectedValue="{Binding User}" />
+                    <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Messages}" />
+
+                    <Button Content="Drop" Grid.Row="2" Width="80" Margin="5" HorizontalAlignment="Right" Command="{Binding DropBtnClicked}"/>
+                    <Button Content="Save to Log" Grid.Row="2" Grid.Column="1" Width="80" Margin="5" HorizontalAlignment="Right" Command="{Binding SaveToLogBtnClicked}"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Logs" Height="20" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Log Files: "  />
+                    <Label Content="Log Messages: " Grid.Column="1"/>
+
+                    <ListBox Grid.Row="1" Grid.ColumnSpan="2" />
+                    <ListBox Grid.Row="1" Grid.Column="2" />
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="0">
+                        <Button Content="Show" Margin="5" VerticalAlignment="Center" />
+                        <Button Content="Drop" Margin="5" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
